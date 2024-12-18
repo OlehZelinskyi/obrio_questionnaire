@@ -110,7 +110,8 @@
           }
         }
       ],
-      "back": "tend_overthink"
+      "back": "tend_overthink",
+      "theme": "dark"
     },
     "most_important": {
       "screenType": "ONE_ANSWER",

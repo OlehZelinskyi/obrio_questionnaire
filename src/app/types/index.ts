@@ -4,6 +4,8 @@ export enum SCREEN_TYPE {
   MULTIPLE_ANSWER = "MULTIPLE_ANSWER",
 }
 
+export type Theme = "dark" | "light";
+
 export type ConditionalNext = {
   default: string;
   on_depend_condition: string;
@@ -27,6 +29,7 @@ export interface Screen {
   tip?: string;
   inputs: Array<Input>;
   back: string | null;
+  theme?: Theme;
 }
 
 export interface Questionnaire {
