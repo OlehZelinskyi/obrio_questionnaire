@@ -2,7 +2,7 @@ import { Theme } from "../types";
 
 const LogoIcon = ({
   className,
-  theme = "dark",
+  theme = "light",
 }: {
   className?: string;
   theme?: Theme;

@@ -1,4 +1,4 @@
-import { Questionnaire } from "@/app/types";
+import { Screen } from "@/app/types";
 import Header from "@/components/our/header";
 import { cn } from "@/lib/utils";
 
@@ -11,21 +11,27 @@ export default async function Layout({
 }>) {
   const screenId = (await params).screen_id;
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/questionnaire`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/questionnaire/${screenId}`
   );
-  const data: Questionnaire = await response.json();
-  const screenData = data.screens[screenId];
+  const data: Screen = await response.json();
 
   return (
     <main
       className={cn(
-        screenData.theme === "dark" ? "bg-night text-white" : "bg-pink-100",
+        data.theme === "dark"
+          ? "bg-night text-background tracking-tight"
+          : "bg-[#FFF0F0]",
         "w-full h-full"
       )}
     >
       <article className="h-full mx-auto px-2 container">
-        <Header theme={screenData.theme} />
-        <section className="max-w-[360px] mx-auto">{children}</section>
+        <Header
+          theme={data.theme}
+          back={data.back && `/questionnaire/${data.back}`}
+        />
+        <section className="max-w-[360px] mx-auto flex flex-col items-center p-5 text-center">
+          {children}
+        </section>
       </article>
     </main>
   );

@@ -1,7 +1,8 @@
 import fs from "fs";
 import path from "path";
 
-import { Questionnaire } from "@/app/types";
+import { Questionnaire, Screen } from "@/app/types";
+import InputBuilder from "@/components/our/input-builder";
 
 export async function generateStaticParams() {
   const filePath = path.join(process.cwd(), "public", "questionnaire.json");
@@ -14,6 +15,26 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function Screen({ params }: { params: { screen_id: string } }) {
-  return <main>Screen {params.screen_id}</main>;
+export default async function ScreenPage({
+  params,
+}: {
+  params: { screen_id: string };
+}) {
+  const screenId = (await params).screen_id;
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/questionnaire/${screenId}`
+  );
+  const data: Screen = await response.json();
+
+  console.log("data", data);
+
+  return (
+    <>
+      <h1 className="text-2xl leading-7 font-bold mb-5">{data.question}</h1>
+      {Boolean(data.tip) && (
+        <p className="text-sm leading-6 font-normal mb-10">{data.tip}</p>
+      )}
+      <InputBuilder inputs={data.inputs} screenType={data.screenType} />
+    </>
+  );
 }
