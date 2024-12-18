@@ -1,0 +1,386 @@
+{
+  "entry": "gender",
+  "screens": {
+    "gender": {
+      "screenType": "ONE_ANSWER",
+      "question": "Select your gender:",
+      "inputs": [
+        {
+          "label": "Female",
+          "value": "Female",
+          "next": "relationship_type"
+        },
+        {
+          "label": "Male",
+          "value": "Male",
+          "next": "relationship_type"
+        }
+      ],
+      "back": null
+    },
+    "relationship_type": {
+      "screenType": "ONE_ANSWER",
+      "question": "So we can get to know you better, tell us about your relationship status.",
+      "inputs": [
+        {
+          "label": "Single",
+          "value": "Single",
+          "next": "single_parent"
+        },
+        {
+          "label": "In a relationship",
+          "value": "In a relationship",
+          "next": "parent"
+        }
+      ],
+      "back": "gender"
+    },
+    "single_parent": {
+      "screenType": "ONE_ANSWER",
+      "question": "Are you a single parent?",
+      "inputs": [
+        {
+          "label": "Yes",
+          "value": "Yes",
+          "next": "relationship_description"
+        },
+        {
+          "label": "No",
+          "value": "No",
+          "next": "relationship_description"
+        }
+      ],
+      "back": "relationship_type"
+    },
+    "relationship_description": {
+      "screenType": "ONE_ANSWER",
+      "question": "{Gender} {who have children (if have children)} need a slightly different approach to improve their relationship. Which statement best describes you?",
+      "inputs": [
+        {
+          "label": "I'm very unhappy with how things are going in my relationship",
+          "value": "I'm very unhappy with how things are going in my relationship",
+          "next": "tend_overthink"
+        },
+        {
+          "label": "I'm unhappy with parts of my relationship, but some things are working well",
+          "value": "I'm unhappy with parts of my relationship, but some things are working well",
+          "next": "tend_overthink"
+        },
+        {
+          "label": "I'm generally happy in my relationship",
+          "value": "I'm generally happy in my relationship",
+          "next": "tend_overthink"
+        }
+      ],
+      "back": "single_parent"
+    },
+    "tend_overthink": {
+      "screenType": "ONE_ANSWER",
+      "question": "Do you tend to overthink?",
+      "inputs": [
+        {
+          "label": "Yes",
+          "value": "Yes",
+          "next": {
+            "default": "what_is",
+            "on_depend_condition": "most_important"
+          }
+        },
+        {
+          "label": "No",
+          "value": "No",
+          "next": {
+            "default": "what_is",
+            "on_depend_condition": "emotional_control"
+          }
+        }
+      ],
+      "back": "relationship_description"
+    },
+    "what_is": {
+      "screenType": "BUTTON",
+      "question": "So how does it work?",
+      "tip": "We analyze hundreds of data points to create your unique astrological blueprint. This is combined with AI to tailor-make your astrological insights, based on your answers. We're going to change your relationship with astrology.",
+      "inputs": [
+        {
+          "label": "Next",
+          "value": null,
+          "next": {
+            "depends_on_value": "tend_overthink"
+          }
+        }
+      ],
+      "back": "tend_overthink"
+    },
+    "most_important": {
+      "screenType": "ONE_ANSWER",
+      "question": "What is most important to you?",
+      "inputs": [
+        {
+          "label": "Success",
+          "value": "Success",
+          "next": "about_us"
+        },
+        {
+          "label": "Romance",
+          "value": "Romance",
+          "next": "about_us"
+        },
+        {
+          "label": "Stability",
+          "value": "Stability",
+          "next": "about_us"
+        },
+        {
+          "label": "Freedom",
+          "value": "Freedom",
+          "next": "about_us"
+        }
+      ],
+      "back": "what_is"
+    },
+    "emotional_control": {
+      "screenType": "ONE_ANSWER",
+      "question": "Is emotional control tricky for you?",
+      "inputs": [
+        {
+          "label": "Yes",
+          "value": "Yes",
+          "next": "about_us"
+        },
+        {
+          "label": "Sometimes",
+          "value": "Sometimes",
+          "next": "about_us"
+        },
+        {
+          "label": "Rarely",
+          "value": "Rarely",
+          "next": "about_us"
+        },
+        {
+          "label": "Not at all",
+          "value": "Not at all",
+          "next": "about_us"
+        }
+      ]
+    },
+    "parent": {
+      "screenType": "ONE_ANSWER",
+      "question": "Are you a parent?",
+      "inputs": [
+        {
+          "label": "Yes",
+          "value": "Yes",
+          "next": "last_relationship_feeling"
+        },
+        {
+          "label": "No",
+          "value": "No",
+          "next": "last_relationship_feeling"
+        }
+      ],
+      "back": "relationship_type"
+    },
+    "last_relationship_feeling": {
+      "screenType": "ONE_ANSWER",
+      "question": "Single {gender} {who have children (if have children)} need a slightly different approach to find their perfect partner. But first, how did you feel in your last relationship?",
+      "inputs": [
+        {
+          "label": "I was unhappy with low things were going in my relationship",
+          "value": "I was unhappy with low things were going in my relationship",
+          "next": "intro_extro_vert_partner"
+        },
+        {
+          "label": "I was unhappy with parts of my relationship, but some thing were working",
+          "value": "I was unhappy with parts of my relationship, but some thing were working",
+          "next": "intro_extro_vert_partner"
+        },
+        {
+          "label": "I was generally happy with my relationship",
+          "value": "I was generally happy with my relationship",
+          "next": "intro_extro_vert_partner"
+        },
+        {
+          "label": "I've never been in a relationship",
+          "value": "I've never been in a relationship",
+          "next": "intro_extro_vert_partner"
+        }
+      ],
+      "back": "parent"
+    },
+    "intro_extro_vert_partner": {
+      "screenType": "ONE_ANSWER",
+      "question": "Is your partner an introvert or extrovert?",
+      "inputs": [
+        {
+          "label": "Introvert",
+          "value": "Introvert",
+          "next": "partner_gender"
+        },
+        {
+          "label": "Extrovert",
+          "value": "Extrovert",
+          "next": "partner_gender"
+        },
+        {
+          "label": "A bit of both",
+          "value": "A bit of both",
+          "next": "partner_gender"
+        }
+      ],
+      "back": "last_relationship_feeling"
+    },
+    "partner_gender": {
+      "screenType": "ONE_ANSWER",
+      "question": "What is your partner's gender?",
+      "inputs": [
+        { "label": "Male", "value": "Male", "next": "partner_priority" },
+        { "label": "Female", "value": "Female", "next": "partner_priority" }
+      ],
+      "back": "intro_extro_vert_partner"
+    },
+    "partner_priority": {
+      "screenType": "ONE_ANSWER",
+      "question": "Do you agree with the statement below?",
+      "tip": "“My partner and I make sex a priority in our relationship”",
+      "inputs": [
+        {
+          "label": "Strongly agree",
+          "value": "Strongly agree",
+          "next": "relationship_goals_feeling"
+        },
+        {
+          "label": "Agree",
+          "value": "Agree",
+          "next": "relationship_goals_feeling"
+        },
+        {
+          "label": "Neutral",
+          "value": "Neutral",
+          "next": "relationship_goals_feeling"
+        },
+        {
+          "label": "Disagree",
+          "value": "Disagree",
+          "next": "relationship_goals_feeling"
+        },
+        {
+          "label": "Strongly disagree",
+          "value": "Strongly disagree",
+          "next": "relationship_goals_feeling"
+        }
+      ],
+      "back": "partner_gender"
+    },
+    "relationship_goals_feeling": {
+      "screenType": "ONE_ANSWER",
+      "question": "When you think about your relationship goals, you feel...?",
+      "inputs": [
+        {
+          "label": "Optimistic! They are totally doable, with some guidance.",
+          "value": "Optimistic! They are totally doable, with some guidance.",
+          "next": "about_us"
+        },
+        {
+          "label": "Cautious. I've struggled before, but I'm hopeful.",
+          "value": "Cautious. I've struggled before, but I'm hopeful.",
+          "next": "about_us"
+        },
+        {
+          "label": "I'm feeling a little anxious, honestly.",
+          "value": "I'm feeling a little anxious, honestly.",
+          "next": "about_us"
+        }
+      ],
+      "back": "partner_priority"
+    },
+    "about_us": {
+      "screenType": "MULTIPLE_ANSWER",
+      "question": "Where did you hear about us?",
+      "inputs": [
+        {
+          "label": "Poster or Billboard",
+          "value": "Poster or Billboard",
+          "next": "results"
+        },
+        {
+          "label": "Friend or Family",
+          "value": "Friend or Family",
+          "next": "results"
+        },
+        {
+          "label": "Instagram",
+          "value": "Instagram",
+          "next": "results"
+        },
+        {
+          "label": "Direct Mail or Package Insert",
+          "value": "Direct Mail or Package Insert",
+          "next": "results"
+        },
+        {
+          "label": "Online TV or Streaming TV",
+          "value": "Online TV or Streaming TV",
+          "next": "results"
+        },
+        {
+          "label": "TV",
+          "value": "TV",
+          "next": "results"
+        },
+        {
+          "label": "Radio",
+          "value": "Radio",
+          "next": "results"
+        },
+        {
+          "label": "Search Engine (Google, Bing, etc.)",
+          "value": "Search Engine (Google, Bing, etc.)",
+          "next": "results"
+        },
+        {
+          "label": "Newspaper or Magazine",
+          "value": "Newspaper or Magazine",
+          "next": "results"
+        },
+        {
+          "label": "Facebook",
+          "value": "Facebook",
+          "next": "results"
+        },
+        {
+          "label": "Blog Post or Website Review",
+          "value": "Blog Post or Website Review",
+          "next": "results"
+        },
+        {
+          "label": "Podcast",
+          "value": "Podcast",
+          "next": "results"
+        },
+        {
+          "label": "Influencer",
+          "value": "Influencer",
+          "next": "results"
+        },
+        {
+          "label": "Youtube",
+          "value": "Youtube",
+          "next": "results"
+        },
+        {
+          "label": "Pinterest",
+          "value": "Pinterest",
+          "next": "results"
+        },
+        {
+          "label": "Other",
+          "value": "Other",
+          "next": "results"
+        }
+      ],
+      "back": "relationship_goals_feeling"
+    }
+  }
+}
