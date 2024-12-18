@@ -21,10 +21,10 @@ export default async function Layout({
         data.theme === "dark"
           ? "bg-night text-background tracking-tight"
           : "bg-[#FFF0F0]",
-        "w-full h-full"
+        "w-full min-h-full"
       )}
     >
-      <article className="h-full mx-auto px-2 container">
+      <article className="mx-auto px-2 container">
         <Header
           theme={data.theme}
           back={data.back && `/questionnaire/${data.back}`}

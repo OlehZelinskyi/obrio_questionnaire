@@ -11,11 +11,11 @@ export type ConditionalNext = {
   on_depend_condition: string;
 };
 
-export type DependencyNext = {
+export type DependsOnValue = {
   depends_on_value: string;
 };
 
-export type InputNext = string | ConditionalNext | DependencyNext;
+export type InputNext = string | ConditionalNext | DependsOnValue;
 
 export interface Input {
   label: string;

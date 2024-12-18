@@ -10,8 +10,8 @@ function isConditionalNext(input: InputNext): input is ConditionalNext {
   return (
     typeof input === "object" &&
     input !== null &&
-    "condition" in input &&
-    "next" in input
+    "on_depend_condition" in input &&
+    "default" in input
   );
 }
 
@@ -23,7 +23,7 @@ export async function getDependencyNext(dependKey: string) {
 
   // todo: get value from redux.
 
-  return data.inputs[0].next as string;
+  return (data.inputs[0].next as ConditionalNext).on_depend_condition;
 }
 
 export async function getInputNext(next: InputNext) {

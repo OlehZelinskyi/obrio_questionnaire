@@ -8,12 +8,13 @@ import Option from "./option";
 const OneAnswerInput = ({ inputs }: { inputs: Input[] }) => {
   const router = useRouter();
 
-  const getClickHandler: (input: Input) => () => void = (input) => async () => {
-    console.log("clicked: ", input.value);
-    const nextValue = await getInputNext(input.next);
+  const getClickHandler: (input: Input) => () => Promise<void> =
+    (input) => async () => {
+      console.log("clicked: ", input.value);
+      const nextValue = await getInputNext(input.next);
 
-    router.push(nextValue);
-  };
+      router.push(nextValue);
+    };
   return (
     <section className="w-full flex flex-col gap-y-5">
       {inputs.map((input, index) => {
