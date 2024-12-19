@@ -1,4 +1,5 @@
-import { ConditionalNext, InputNext, Screen } from "@/app/types";
+import { store } from "@/app/redux/store";
+import { ConditionalNext, InputNext } from "@/app/types";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -16,14 +17,27 @@ function isConditionalNext(input: InputNext): input is ConditionalNext {
 }
 
 export async function getDependencyNext(dependKey: string) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/questionnaire/${dependKey}`
-  );
-  const data: Screen = await response.json();
+  const screenMeta = store.getState().schema?.screens[dependKey];
 
-  // todo: get value from redux.
+  if (!screenMeta) {
+    console.error("Error in dependency graph, using key", dependKey);
+    return "/";
+  }
 
-  return (data.inputs[0].next as ConditionalNext).on_depend_condition;
+  const savedValue = store.getState().answers[dependKey];
+  const nextScreen = screenMeta.inputs.find(
+    (input) => input.value === savedValue?.value
+  )?.next;
+
+  if (!screenMeta) {
+    console.error("Error in dependency graph, using screen", {
+      screenMeta,
+      savedValue,
+    });
+    return "/";
+  }
+
+  return (nextScreen as ConditionalNext).on_depend_condition;
 }
 
 export async function getInputNext(next: InputNext) {

@@ -2,7 +2,7 @@ import { Questionnaire } from "@/app/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface State {
-  answers: Record<string, unknown>;
+  answers: Record<string, { value: unknown; id: string } | undefined>;
   schema: Questionnaire | null;
 }
 
