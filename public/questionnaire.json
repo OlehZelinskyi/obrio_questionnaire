@@ -8,12 +8,14 @@
         {
           "label": "Female",
           "value": "Female",
-          "next": "relationship_type"
+          "next": "relationship_type",
+          "tokenizedValue": "Female"
         },
         {
           "label": "Male",
           "value": "Male",
-          "next": "relationship_type"
+          "next": "relationship_type",
+          "tokenizedValue": "Male"
         }
       ],
       "back": null
@@ -42,12 +44,14 @@
         {
           "label": "Yes",
           "value": "Yes",
-          "next": "relationship_description"
+          "next": "relationship_description",
+          "tokenizedValue": "who has children"
         },
         {
           "label": "No",
           "value": "No",
-          "next": "relationship_description"
+          "next": "relationship_description",
+          "tokenizedValue": "who doesn't have children"
         }
       ],
       "back": "relationship_type"
@@ -72,6 +76,10 @@
           "next": "tend_overthink"
         }
       ],
+      "tokens": {
+        "Gender": "gender",
+        "who have children (if have children)": "single_parent"
+      },
       "back": "single_parent"
     },
     "tend_overthink": {
@@ -173,12 +181,14 @@
         {
           "label": "Yes",
           "value": "Yes",
-          "next": "last_relationship_feeling"
+          "next": "last_relationship_feeling",
+          "tokenizedValue": "who has children"
         },
         {
           "label": "No",
           "value": "No",
-          "next": "last_relationship_feeling"
+          "next": "last_relationship_feeling",
+          "tokenizedValue": "who doesn't have children"
         }
       ],
       "back": "relationship_type"
@@ -208,6 +218,10 @@
           "next": "intro_extro_vert_partner"
         }
       ],
+      "tokens": {
+        "gender": "gender",
+        "who have children (if have children)": "parent"
+      },
       "back": "parent"
     },
     "intro_extro_vert_partner": {

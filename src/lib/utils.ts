@@ -1,5 +1,5 @@
 import { store } from "@/app/redux/store";
-import { ConditionalNext, InputNext } from "@/app/types";
+import { ConditionalNext, InputNext, Screen } from "@/app/types";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -54,4 +54,44 @@ export async function getInputNext(next: InputNext) {
   const dependecyNext = await getDependencyNext(next.depends_on_value);
 
   return dependecyNext;
+}
+
+export function replaceTokens(
+  template: string,
+  replacements: Record<string, string>
+) {
+  return template.replace(
+    /\{(.*?)\}/g,
+    (_, token) => replacements[token] || token
+  );
+}
+
+export function getTokenReplacements(screen: Screen) {
+  if (!screen.tokens) {
+    return {};
+  }
+
+  const replacementsMap: Record<string, string> = {};
+
+  const tokens = screen.tokens;
+  const answers = store.getState().answers;
+  const _schema = store.getState().schema;
+
+  for (const key in tokens) {
+    const screenId = tokens[key];
+    const screen = _schema?.screens[screenId];
+    const savedAnswer = answers[screenId];
+
+    if (screen && typeof savedAnswer !== "undefined") {
+      const selectedOption = screen.inputs.find(
+        (input) => input.value === savedAnswer.value
+      );
+
+      if (selectedOption?.tokenizedValue) {
+        replacementsMap[key] = selectedOption.tokenizedValue;
+      }
+    }
+  }
+
+  return replacementsMap;
 }

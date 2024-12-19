@@ -21,6 +21,7 @@ export interface Input {
   label: string;
   value: string | null;
   next: InputNext;
+  tokenizedValue?: string;
 }
 
 export interface Screen {
@@ -30,6 +31,7 @@ export interface Screen {
   inputs: Array<Input>;
   back: string | null;
   theme?: Theme;
+  tokens?: Record<string, string>;
 }
 
 export interface Questionnaire {
