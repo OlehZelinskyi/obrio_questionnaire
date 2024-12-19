@@ -14,6 +14,7 @@ const renderValue = (value: unknown) => {
 
 const Results = () => {
   const answers = useSelector((state: RootState) => state.answers);
+  const schema = useSelector((state: RootState) => state.schema);
 
   return (
     <section className="grid grid-cols-2 min-w-[320px] justify-items-start">
@@ -21,10 +22,12 @@ const Results = () => {
       <p className="py-2 text-lg font-semibold tracking-wide">Answer</p>
       {Object.keys(answers).map((key) => {
         if (answers[key]) {
+          const question = schema?.screens[key].question;
+
           return (
             <Fragment key={key}>
               <p className="py-1 px-2 text-left bg-white/10 w-full">
-                {(answers[key] as AnswerMeta).question}
+                {question}
               </p>
               <p className="py-1 px-2 text-left bg-white/10 w-full">
                 {renderValue((answers[key] as AnswerMeta).value)}

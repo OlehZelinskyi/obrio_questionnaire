@@ -1,17 +1,19 @@
+import { Questionnaire } from "@/app/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface State {
   answers: Record<string, unknown>;
+  schema: Questionnaire | null;
 }
 
 export interface AnswerMeta {
   key: string;
   value: unknown;
-  question: string;
 }
 
 const initialState = {
   answers: {},
+  schema: null,
 } satisfies State as State;
 
 const questionnaireSlice = createSlice({
@@ -20,9 +22,13 @@ const questionnaireSlice = createSlice({
   reducers: {
     addAnswer: (state, action: PayloadAction<AnswerMeta>) => {
       state.answers[action.payload.key] = {
-        question: action.payload.question,
         value: action.payload.value,
+        id: action.payload.key,
       };
+    },
+
+    setSchema: (state, action: PayloadAction<Questionnaire>) => {
+      state.schema = action.payload;
     },
 
     clearAnswer: (state, action: PayloadAction<Pick<AnswerMeta, "key">>) => {
@@ -31,5 +37,5 @@ const questionnaireSlice = createSlice({
   },
 });
 
-export const { addAnswer, clearAnswer } = questionnaireSlice.actions;
+export const { addAnswer, clearAnswer, setSchema } = questionnaireSlice.actions;
 export default questionnaireSlice.reducer;
