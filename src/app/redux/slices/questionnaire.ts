@@ -4,9 +4,10 @@ interface State {
   answers: Record<string, unknown>;
 }
 
-interface AnswerMeta {
+export interface AnswerMeta {
   key: string;
   value: unknown;
+  question: string;
 }
 
 const initialState = {
@@ -18,10 +19,13 @@ const questionnaireSlice = createSlice({
   initialState: initialState,
   reducers: {
     addAnswer: (state, action: PayloadAction<AnswerMeta>) => {
-      state.answers[action.payload.key] = action.payload.value;
+      state.answers[action.payload.key] = {
+        question: action.payload.question,
+        value: action.payload.value,
+      };
     },
 
-    clearAnswer: (state, action) => {
+    clearAnswer: (state, action: PayloadAction<Pick<AnswerMeta, "key">>) => {
       state.answers[action.payload.key] = undefined;
     },
   },

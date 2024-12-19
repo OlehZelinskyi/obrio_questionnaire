@@ -28,6 +28,7 @@ export default async function Layout({
         <Header
           theme={data.theme}
           back={data.back && `/questionnaire/${data.back}`}
+          screenId={screenId}
         />
         <section className="max-w-[360px] mx-auto flex flex-col items-center p-5 text-center">
           {children}

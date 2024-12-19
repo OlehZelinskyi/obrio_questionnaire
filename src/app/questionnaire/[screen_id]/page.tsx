@@ -36,6 +36,7 @@ export default async function ScreenPage({
         inputs={data.inputs}
         screenType={data.screenType}
         screenId={screenId}
+        question={data.question}
       />
     </>
   );

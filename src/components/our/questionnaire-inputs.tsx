@@ -9,15 +9,17 @@ const QuestionnaireInputs = ({
   inputs,
   screenType,
   screenId,
+  question,
 }: {
   inputs: Input[];
   screenType: SCREEN_TYPE;
   screenId: string;
+  question: string;
 }) => {
   const dispatch = useDispatch();
 
   const saveAnswer = (value: unknown) => {
-    dispatch(addAnswer({ key: screenId, value }));
+    dispatch(addAnswer({ key: screenId, value, question }));
   };
 
   return (
