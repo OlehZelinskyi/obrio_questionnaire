@@ -32,6 +32,10 @@ const questionnaireSlice = createSlice({
       };
     },
 
+    clearAllAnswers: (state) => {
+      state.answers = {};
+    },
+
     setSchema: (state, action: PayloadAction<Questionnaire>) => {
       state.schema = action.payload;
     },
@@ -42,5 +46,6 @@ const questionnaireSlice = createSlice({
   },
 });
 
-export const { addAnswer, clearAnswer, setSchema } = questionnaireSlice.actions;
+export const { addAnswer, clearAnswer, setSchema, clearAllAnswers } =
+  questionnaireSlice.actions;
 export default questionnaireSlice.reducer;
