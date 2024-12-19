@@ -42,13 +42,23 @@ const Checkbox = ({ onChange, children, checked = false }: CheckboxProps) => {
 const MultipleAnswerInput = ({
   inputs,
   saveAnswer,
+  getSavedValue,
 }: {
   inputs: Input[];
   saveAnswer: (value: unknown) => void;
+  getSavedValue: () => unknown[] | undefined;
 }) => {
   const router = useRouter();
   const [selected, setSelected] = useState<Record<string, string | undefined>>(
-    {}
+    () => {
+      return (
+        (getSavedValue() as string[] | undefined)?.reduce((acc, next) => {
+          acc[next] = next;
+
+          return acc;
+        }, {} as Record<string, string>) ?? {}
+      );
+    }
   );
 
   const nextValue = useRef<string | null>(null);

@@ -7,20 +7,30 @@ const InputBuilder = ({
   inputs,
   screenType,
   saveAnswer,
+  getSavedValue,
 }: {
   inputs: Input[];
   screenType: SCREEN_TYPE;
   saveAnswer: (value: unknown) => void;
+  getSavedValue: () => unknown;
 }) => {
   return {
     [SCREEN_TYPE.ONE_ANSWER]: (
-      <OneAnswerInput inputs={inputs} saveAnswer={saveAnswer} />
+      <OneAnswerInput
+        inputs={inputs}
+        saveAnswer={saveAnswer}
+        getSavedValue={getSavedValue}
+      />
     ),
     [SCREEN_TYPE.BUTTON]: (
       <ButtonInput inputs={inputs} saveAnswer={saveAnswer} />
     ),
     [SCREEN_TYPE.MULTIPLE_ANSWER]: (
-      <MultipleAnswerInput inputs={inputs} saveAnswer={saveAnswer} />
+      <MultipleAnswerInput
+        inputs={inputs}
+        saveAnswer={saveAnswer}
+        getSavedValue={getSavedValue as () => unknown[] | undefined}
+      />
     ),
   }[screenType];
 };

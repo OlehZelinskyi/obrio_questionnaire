@@ -21,7 +21,7 @@ const Header = ({
 
   const handleBack = () => {
     if (screenId) {
-      dispatch(clearAnswer({ key: screenId }));
+      dispatch(clearAnswer({ id: screenId }));
     }
   };
 

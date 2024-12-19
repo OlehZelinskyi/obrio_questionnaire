@@ -8,9 +8,11 @@ import Option from "./option";
 const OneAnswerInput = ({
   inputs,
   saveAnswer,
+  getSavedValue,
 }: {
   inputs: Input[];
   saveAnswer: (value: unknown) => void;
+  getSavedValue: () => unknown;
 }) => {
   const router = useRouter();
 
@@ -27,8 +29,14 @@ const OneAnswerInput = ({
   return (
     <section className="w-full flex flex-col gap-y-5">
       {inputs.map((input, index) => {
+        const isChosen = getSavedValue() === input.value;
+
         return (
-          <Option onClick={getClickHandler(input)} key={index}>
+          <Option
+            chosen={isChosen}
+            onClick={getClickHandler(input)}
+            key={index}
+          >
             {input.label}
           </Option>
         );
