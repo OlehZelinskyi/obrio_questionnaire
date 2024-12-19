@@ -8,5 +8,7 @@ export async function GET() {
 
   const jsonData = JSON.parse(fileContent);
 
+  if (!jsonData) return NextResponse.json({});
+
   return NextResponse.json(jsonData);
 }

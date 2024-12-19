@@ -1,9 +1,15 @@
 "use client";
 
 import { Input } from "@/app/types";
-import { cn } from "@/lib/utils";
+import { cn, getInputNext } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-import { ChangeEventHandler, ReactNode, useState } from "react";
+import {
+  ChangeEventHandler,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Option from "./option";
 
 interface CheckboxProps {
@@ -33,13 +39,19 @@ const Checkbox = ({ onChange, children, checked = false }: CheckboxProps) => {
   );
 };
 
-const MultipleAnswerInput = ({ inputs }: { inputs: Input[] }) => {
+const MultipleAnswerInput = ({
+  inputs,
+  saveAnswer,
+}: {
+  inputs: Input[];
+  saveAnswer: (value: unknown) => void;
+}) => {
   const router = useRouter();
   const [selected, setSelected] = useState<Record<string, string | undefined>>(
     {}
   );
 
-  console.log("selected", selected);
+  const nextValue = useRef<string | null>(null);
 
   const getChangeHandler: (input: Input) => () => void =
     (input) => async () => {
@@ -49,25 +61,55 @@ const MultipleAnswerInput = ({ inputs }: { inputs: Input[] }) => {
           ? undefined
           : (input.value as string),
       }));
-
-      // const nextValue = await getInputNext(input.next);
-
-      // router.push(nextValue);
     };
+
+  useEffect(() => {
+    // In multi-option variant next url will be the same for every option
+    // So we can work with inputs[0]
+
+    async function getNext() {
+      const nextInputValue = await getInputNext(inputs[0].next);
+
+      nextValue.current = nextInputValue;
+    }
+
+    getNext();
+  }, [inputs]);
+
+  const handleProceed = () => {
+    if (nextValue.current) {
+      saveAnswer(Object.values(selected));
+
+      router.push(nextValue.current);
+    }
+  };
+  const canProceed = !!Object.values(selected).filter(Boolean).length;
+
   return (
-    <section className="w-full flex flex-col gap-y-5">
-      {inputs.map((input, index) => {
-        return (
-          <Checkbox
-            checked={!!selected[input.value as string]}
-            onChange={getChangeHandler(input)}
-            key={index}
-          >
-            {input.label}
-          </Checkbox>
-        );
-      })}
-    </section>
+    <div className="flex flex-col">
+      <section className="w-full flex flex-col gap-y-5 pr-2 max-h-[400px] overflow-y-auto">
+        {inputs.map((input, index) => {
+          return (
+            <Checkbox
+              checked={!!selected[input.value as string]}
+              onChange={getChangeHandler(input)}
+              key={index}
+            >
+              {input.label}
+            </Checkbox>
+          );
+        })}
+      </section>
+      {canProceed && (
+        <Option
+          variant="default"
+          className="max-w-[calc(100%-12px)] mt-5"
+          onClick={handleProceed}
+        >
+          Proceed
+        </Option>
+      )}
+    </div>
   );
 };
 

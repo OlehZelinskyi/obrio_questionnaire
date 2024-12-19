@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 
 import { Questionnaire, Screen } from "@/app/types";
-import InputBuilder from "@/components/our/input-builder";
+import QuestionnaireInputs from "@/components/our/questionnaire-inputs";
 
 export async function generateStaticParams() {
   const filePath = path.join(process.cwd(), "public", "questionnaire.json");
@@ -26,15 +26,17 @@ export default async function ScreenPage({
   );
   const data: Screen = await response.json();
 
-  console.log("data", data);
-
   return (
     <>
       <h1 className="text-2xl leading-7 font-bold mb-5">{data.question}</h1>
       {Boolean(data.tip) && (
         <p className="text-sm leading-6 font-normal mb-10">{data.tip}</p>
       )}
-      <InputBuilder inputs={data.inputs} screenType={data.screenType} />
+      <QuestionnaireInputs
+        inputs={data.inputs}
+        screenType={data.screenType}
+        screenId={screenId}
+      />
     </>
   );
 }

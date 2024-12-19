@@ -299,6 +299,7 @@
     "about_us": {
       "screenType": "MULTIPLE_ANSWER",
       "question": "Where did you hear about us?",
+      "tip": "You can select more than one option.",
       "inputs": [
         {
           "label": "Poster or Billboard",

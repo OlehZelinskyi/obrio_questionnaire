@@ -6,10 +6,8 @@ const Option = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ children, className, ...rest }, ref) => {
     return (
       <Button
-        className={cn(
-          "w-full h-16 rounded-xl bg-button text-foreground border !shadow-button text-black text-sm hover:bg-night hover:text-[#FBFBFF] transition-none whitespace-normal",
-          className
-        )}
+        className={cn("w-full h-16 rounded-xl", className)}
+        variant="stone"
         ref={ref}
         {...rest}
       >

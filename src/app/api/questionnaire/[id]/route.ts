@@ -11,5 +11,7 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
 
   const item = jsonData.screens[params.id];
 
+  if (!item) return NextResponse.json({});
+
   return NextResponse.json(item);
 }

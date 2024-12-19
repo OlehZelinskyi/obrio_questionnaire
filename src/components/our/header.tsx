@@ -4,7 +4,7 @@ import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 
-const Header = ({ theme, back }: { theme?: Theme; back: string | null }) => {
+const Header = ({ theme, back }: { theme?: Theme; back?: string | null }) => {
   return (
     <header className="flex items-center justify-between h-14">
       {back ? (

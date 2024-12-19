@@ -5,12 +5,21 @@ import { getInputNext } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import Option from "./option";
 
-const ButtonInput = ({ inputs }: { inputs: Input[] }) => {
+const ButtonInput = ({
+  inputs,
+  saveAnswer,
+}: {
+  inputs: Input[];
+  saveAnswer: (value: unknown) => void;
+}) => {
   const router = useRouter();
 
   const getClickHandler: (input: Input) => () => void = (input) => async () => {
-    console.log("clicked: ", input.value);
     const nextValue = await getInputNext(input.next);
+
+    if (input.value) {
+      saveAnswer(input.value);
+    }
 
     router.push(nextValue);
   };
