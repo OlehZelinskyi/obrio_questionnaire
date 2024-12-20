@@ -5,14 +5,9 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/questionnaire`
-  );
-  const data = await response.json();
-
   return (
     <>
-      <SaveSchemaService data={data} />
+      <SaveSchemaService />
       {children}
     </>
   );

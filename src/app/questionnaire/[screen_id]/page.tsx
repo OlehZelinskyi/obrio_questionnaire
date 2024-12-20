@@ -1,14 +1,9 @@
-import fs from "fs";
-import path from "path";
-
 import { Questionnaire, Screen } from "@/app/types";
 import ScreenContent from "@/components/our/screen-content";
+import { fetchQuestionnaire } from "@/lib/fetch-questionnaire";
 
 export async function generateStaticParams() {
-  const filePath = path.join(process.cwd(), "public", "questionnaire.json");
-
-  const fileContent = fs.readFileSync(filePath, "utf-8");
-  const questionnaireJSON: Questionnaire = JSON.parse(fileContent);
+  const questionnaireJSON: Questionnaire = await fetchQuestionnaire();
 
   return Object.keys(questionnaireJSON.screens).map((screenId) => ({
     screen_id: screenId,
@@ -18,13 +13,12 @@ export async function generateStaticParams() {
 export default async function ScreenPage({
   params,
 }: {
-  params: { screen_id: string };
+  params: Promise<{ screen_id: string }>;
 }) {
   const screenId = (await params).screen_id;
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/questionnaire/${screenId}`
-  );
-  const data: Screen = await response.json();
+  const questionnaireJSON: Questionnaire = await fetchQuestionnaire();
+
+  const data: Screen = questionnaireJSON.screens[screenId];
 
   return <ScreenContent id={screenId} screen={data} />;
 }

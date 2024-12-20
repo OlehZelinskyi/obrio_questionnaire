@@ -1,9 +1,9 @@
 "use client";
 
 import { addAnswer } from "@/app/redux/slices/questionnaire";
-import { store } from "@/app/redux/store";
+import { RootState } from "@/app/redux/store";
 import { Input, SCREEN_TYPE } from "@/app/types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import InputBuilder from "./input-builder";
 
 const QuestionnaireInputs = ({
@@ -18,15 +18,14 @@ const QuestionnaireInputs = ({
   question: string;
 }) => {
   const dispatch = useDispatch();
+  const answers = useSelector((state: RootState) => state.answers);
 
   const saveAnswer = (value: unknown) => {
     dispatch(addAnswer({ id: screenId, value, question }));
   };
 
   const getSavedValue = () => {
-    const answer = store.getState().answers[screenId];
-
-    return answer?.value;
+    return answers[screenId]?.value;
   };
 
   return (

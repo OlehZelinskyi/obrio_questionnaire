@@ -5,7 +5,7 @@ import path from "path";
 
 export async function GET(
   _: Request,
-  { params }: { params: { screen_id: string } }
+  { params }: { params: Promise<{ screen_id: string }> }
 ) {
   const screenId = (await params).screen_id;
   const filePath = path.join(process.cwd(), "public", "questionnaire.json");

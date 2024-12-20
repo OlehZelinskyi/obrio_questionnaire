@@ -1,4 +1,7 @@
+import { Questionnaire } from "@/app/types";
+
 import Header from "@/components/our/header";
+import { fetchQuestionnaire } from "@/lib/fetch-questionnaire";
 import { cn } from "@/lib/utils";
 
 export default async function Layout({
@@ -6,14 +9,13 @@ export default async function Layout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: { screen_id: string };
+  params: Promise<{ screen_id: string }>;
 }>) {
   const screenId = (await params).screen_id;
 
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/questionnaire/${screenId}`
-  );
-  const data = await response.json();
+  const questionnaireJSON: Questionnaire = await fetchQuestionnaire();
+
+  const data = questionnaireJSON.screens[screenId];
 
   return (
     <main

@@ -1,11 +1,9 @@
+import { fetchQuestionnaire } from "@/lib/fetch-questionnaire";
 import { redirect } from "next/navigation";
 import { Questionnaire } from "../types";
 
 export default async function Home() {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/questionnaire`
-  );
-  const data: Questionnaire = await response.json();
+  const data: Questionnaire = await fetchQuestionnaire();
 
   const entry = data.entry;
 
